@@ -8,11 +8,42 @@ const API = "https://65ab6a1efcd1c9dcffc659a4.mockapi.io/api/v1/advertisement";
 
 function Product() {
   const [products, setProducts] = useState([]);
+  const [time, setTime] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const targetTime = new Date().getTime() + 3 * 24 * 60 * 60 * 1000;
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = targetTime - now;
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      if (difference < 0) {
+        clearInterval(interval);
+      } else {
+        setTime({ days, hours, minutes, seconds });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   async function getProduct() {
     try {
       const res = await axios.get(API);
-      console.log(res);
+
       setProducts(res.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +58,6 @@ function Product() {
     return p - p * (d / 100).toFixed(0);
   }
 
-  console.log(products);
   return (
     <div className="sales container">
       <div className="flash">
@@ -42,22 +72,22 @@ function Product() {
           <div className="group">
             <div className="count">
               <p>Days</p>
-              <h4>03</h4>
+              <h4>{time.days}</h4>
             </div>
             <div className="delete">:</div>
             <div className="count">
               <p>Hours</p>
-              <h4>23</h4>
+              <h4>{time.hours}</h4>
             </div>
             <div className="delete">:</div>
             <div className="count">
               <p>Minutes</p>
-              <h4>19</h4>
+              <h4>{time.minutes}</h4>
             </div>
             <div className="delete">:</div>
             <div className="count">
               <p>Seconds</p>
-              <h4>56</h4>
+              <h4>{time.seconds}</h4>
             </div>
           </div>
         </div>
