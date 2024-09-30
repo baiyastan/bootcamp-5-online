@@ -3,6 +3,8 @@ import "./Product.scss";
 import axios from "axios";
 import Star from "../../assets/svg/Star";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addCount } from "../../redux/counter/countSlice";
 
 const API = "https://65ab6a1efcd1c9dcffc659a4.mockapi.io/api/v1/advertisement";
 
@@ -14,6 +16,8 @@ function Product() {
     minutes: 0,
     seconds: 0,
   });
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const targetTime = new Date().getTime() + 3 * 24 * 60 * 60 * 1000;
@@ -96,6 +100,7 @@ function Product() {
             <img src="" alt="" />
             <img src="" alt="" />
           </div>
+          <button onClick={() => dispatch(addCount())}>add</button>
         </div>
       </div>
       <div className="products">

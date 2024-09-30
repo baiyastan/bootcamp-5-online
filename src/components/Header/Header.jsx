@@ -4,8 +4,17 @@ import wishlist from "../../assets/svg/wishlist.svg";
 import cart from "../../assets/svg/cart.svg";
 import "./Header.scss";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const { t, i18n } = useTranslation()
+  const {value} = useSelector((state) => state.counter)
+
+  function handleChangeLng(event) {
+    const lng = event.target.value;
+    i18n.changeLanguage(lng)
+  }
   return (
     <div>
       <div className="top-header">
@@ -13,16 +22,16 @@ function Header() {
           <p>
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
           </p>
-          <select>
+          <select onChange={handleChangeLng}>
             <option value="kg">KGZ</option>
-            <option value="en">END</option>
+            <option value="en">ENG</option>
             <option value="ru">RUS</option>
           </select>
         </div>
       </div>
       <header className="header container">
         <div className="header-left">
-          <h1>Exclusive</h1>
+          <h1>{t("logo")}</h1>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -44,7 +53,10 @@ function Header() {
             <img src={search} alt="" />
           </div>
           <div className="icons">
-            <img src={wishlist} alt="" />
+            <div className="icon">
+              <img src={wishlist} alt="" />
+              <div className="count">{value}</div>
+            </div>
             <img src={cart} alt="" />
           </div>
         </div>
