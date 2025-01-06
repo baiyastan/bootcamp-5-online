@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 function Header() {
   const { t, i18n } = useTranslation()
   const {value} = useSelector((state) => state.counter)
+  const {items} = useSelector((state) => state.wishlist)
 
   function handleChangeLng(event) {
     const lng = event.target.value;
@@ -54,10 +55,17 @@ function Header() {
           </div>
           <div className="icons">
             <div className="icon">
-              <img src={wishlist} alt="" />
-              <div className="count">{value}</div>
+              <Link to="/wishlist">
+                <img src={wishlist} alt="" />
+              </Link>
+              <div className="count">{items.length}</div>
             </div>
-            <img src={cart} alt="" />
+            <div className="icon">
+              <Link to="/cart">
+                <img src={cart} alt="" />
+              </Link>
+              <div className="count">2</div>
+            </div>
           </div>
         </div>
       </header>

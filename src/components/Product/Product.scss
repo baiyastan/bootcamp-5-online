@@ -178,6 +178,19 @@
          } 
      } 
 
+     
+        button{ 
+            width: 270px; 
+            height: 56px; 
+            border-style: none; 
+        
+            
+                &:hover{ 
+                    background-color: rgb(219, 68, 68); 
+                    color: aliceblue; 
+                }
+            }
+
 
      .product-bottom{ 
          width: 201px; 
@@ -247,3 +260,4 @@
         } 
        } 
 }
+

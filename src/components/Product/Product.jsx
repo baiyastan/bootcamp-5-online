@@ -5,6 +5,9 @@ import Star from "../../assets/svg/Star";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCount } from "../../redux/counter/countSlice";
+import like from "../../assets/svg/wishlist.svg"
+import { addWish } from "../../redux/wishlist/wishSlice";
+import { addCart } from "../../redux/cart/cartSlice";
 
 const API = "https://65ab6a1efcd1c9dcffc659a4.mockapi.io/api/v1/advertisement";
 
@@ -111,7 +114,7 @@ function Product() {
                 <img src={item.imageUrl} alt="" />
               </Link>
               <div className="product-icons">
-                <img src="" alt="" />
+                <img onClick={() => dispatch(addWish(item))} src={like} alt="" />
                 <img src="" alt="" />
               </div>
               {item.discount && (
@@ -120,6 +123,7 @@ function Product() {
                 </div>
               )}
             </div>
+            <button onClick={()=>dispatch(addCart(item))}>Add to cart</button>
             <div className="product-bottom">
               <h3>HAVIT HV-G92 Gamepad</h3>
               <div className="price">
